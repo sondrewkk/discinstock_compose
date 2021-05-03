@@ -25,7 +25,7 @@ services:
   spider:
     image: discgolfspider:dev
     ports: 
-      - "9000:9000"
+      - "9001:9000"
     depends_on:
       - mongo
     secrets:
@@ -75,6 +75,6 @@ secrets:
 networks:
   backend:
   frontend:
-  
+
 volumes:
   mongo-data:
