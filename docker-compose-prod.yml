@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  spider:
+    image: discgolfspider:latest
+
+  api:
+    image: discinstock_api:latest
+    
+  app:
+    image: discinstock_app:latest
+    ports:
+      - "80:80"
