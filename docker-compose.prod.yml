@@ -14,8 +14,4 @@ services:
   app:
     image: noddi89/discinstock_app:latest
     ports:
-      - "80:80"
-    environment:
-     - NODE_ENV=production
-     - API_HOST=api
-     - API_PORT=60001
+      - "60000:80"
