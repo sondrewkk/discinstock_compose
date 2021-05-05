@@ -23,9 +23,9 @@ services:
     command: ["--bind_ip_all"]
 
   spider:
-    image: discgolfspider:dev
+    image: discinstock_spider:dev
     ports: 
-      - "9001:9000"
+      - "8002:8000"
     depends_on:
       - mongo
     secrets:
@@ -38,6 +38,7 @@ services:
       - MONGO_DB=discinstock
       - MONGO_NON_ROOT_USERNAME=discinstock_user
       - MONGO_NON_ROOT_PASSWORD_FILE=/run/secrets/discinstock_user_password
+      - CRAWL_INTERVAL=3600
 
   api:
     image: discinstock_api:dev
@@ -64,7 +65,7 @@ services:
      - api
     networks:
      - frontend
-     - backend
+     - backend 
 
 secrets:
   mongo_password:

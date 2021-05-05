@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  spider:
+    image: noddi89/discinstock_spider:latest
+    ports: 
+      - "60002:8000"
+
+  api:
+    image: noddi89/discinstock_api:latest
+    ports:
+      - "60001:8000"
+    
+  app:
+    image: noddi89/discinstock_app:latest
+    ports:
+      - "80:80"
+    environment:
+     - NODE_ENV=production
+     - API_HOST=api
+     - API_PORT=60001
