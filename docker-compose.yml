@@ -13,7 +13,7 @@ services:
       - mongo_password
       - discinstock_user_password
     networks:
-      - backend
+      - discinstock_network
     environment:
       - MONGO_INITDB_ROOT_USERNAME=mongoadmin
       - MONGO_INITDB_ROOT_PASSWORD_FILE=/run/secrets/mongo_password
@@ -23,15 +23,15 @@ services:
     command: ["--bind_ip_all"]
 
   spider:
-    image: discinstock_spider:dev
+    image: noddi89/discinstock_spider:latest
     ports: 
-      - "8002:8000"
+      - "60002:8000"
     depends_on:
       - mongo
     secrets:
       - discinstock_user_password
     networks:
-      - backend
+      - discinstock_network
     environment:
       - MONGO_HOST=mongo
       - MONGO_PORT=27017
@@ -41,31 +41,31 @@ services:
       - CRAWL_INTERVAL=3600
 
   api:
-    image: discinstock_api:dev
+    image: noddi89/discinstock_api:latest
     ports: 
-      - "8001:8000"
+      - "60001:8000"
     depends_on: 
       - mongo
     secrets:
       - discinstock_user_password
     networks:
-      - backend
+      - discinstock_network
     environment:
       - MONGO_HOST=mongo
       - MONGO_PORT=27017
       - MONGO_DB=discinstock
       - MONGO_NON_ROOT_USERNAME=discinstock_user
       - MONGO_NON_ROOT_PASSWORD_FILE=/run/secrets/discinstock_user_password
+      - FORWARDED_ALLOW_IPS=app
 
   app:
-    image: discinstock_app:dev
+    image: noddi89/discinstock_app:latest
     ports:
-      - "8080:8080"
+      - "80:80"
     depends_on:
      - api
     networks:
-     - frontend
-     - backend 
+     - discinstock_network
 
 secrets:
   mongo_password:
@@ -74,8 +74,7 @@ secrets:
     external: true
 
 networks:
-  backend:
-  frontend:
+  discinstock_network:
 
 volumes:
   mongo-data:
