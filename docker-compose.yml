@@ -61,7 +61,7 @@ services:
   app:
     image: noddi89/discinstock_app:latest
     ports:
-      - "80:80"
+      - "60000:80"
     depends_on:
      - api
     networks:
