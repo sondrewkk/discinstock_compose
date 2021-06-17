@@ -39,6 +39,7 @@ services:
       - MONGO_NON_ROOT_USERNAME=discinstock_user
       - MONGO_NON_ROOT_PASSWORD_FILE=/run/secrets/discinstock_user_password
       - CRAWL_INTERVAL=3600
+      - LOG_LEVEL=WARNING
 
   api:
     image: noddi89/discinstock_api:latest
