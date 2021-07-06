@@ -49,6 +49,7 @@ services:
       - mongo
     secrets:
       - discinstock_user_password
+      - jwt_secret_key
     networks:
       - discinstock_network
     environment:
@@ -75,6 +76,8 @@ secrets:
   mongo_password:
     external: true
   discinstock_user_password:
+    external: true
+  jwt_secret_key:
     external: true
 
 networks:
