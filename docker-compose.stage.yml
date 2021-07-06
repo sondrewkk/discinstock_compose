@@ -58,6 +58,9 @@ services:
       - MONGO_NON_ROOT_USERNAME=discinstock_user
       - MONGO_NON_ROOT_PASSWORD_FILE=/run/secrets/discinstock_user_password
       - FORWARDED_ALLOW_IPS=app
+      - ALGORITHM=HS256
+      - ACCESS_TOKEN_EXPIRE_MINUTES=30
+      - JWT_SECRET_KEY_FILE=/run/secrets/jwt_secret_key
 
   app:
     image: discinstock_app:stage
