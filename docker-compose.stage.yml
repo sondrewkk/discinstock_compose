@@ -12,8 +12,6 @@ services:
     secrets:
       - mongo_password
       - discinstock_user_password
-    networks:
-      - discinstock_network
     environment:
       - MONGO_INITDB_ROOT_USERNAME=mongoadmin
       - MONGO_INITDB_ROOT_PASSWORD_FILE=/run/secrets/mongo_password
@@ -27,17 +25,14 @@ services:
     ports: 
       - "60002:8000"
     depends_on:
-      - mongo
+      - api
     secrets:
-      - discinstock_user_password
-    networks:
-      - discinstock_network
+      - api_username
+      - api_password
     environment:
-      - MONGO_HOST=mongo
-      - MONGO_PORT=27017
-      - MONGO_DB=discinstock
-      - MONGO_NON_ROOT_USERNAME=discinstock_user
-      - MONGO_NON_ROOT_PASSWORD_FILE=/run/secrets/discinstock_user_password
+      - API_URL=http://api:8000
+      - API_USERNAME_FILE=/run/secrets/api_username
+      - API_PASSWORD_FILE=/run/secrets/api_password
       - CRAWL_INTERVAL=3600
       - LOG_LEVEL=INFO
 
@@ -50,8 +45,6 @@ services:
     secrets:
       - discinstock_user_password
       - jwt_secret_key
-    networks:
-      - discinstock_network
     environment:
       - MONGO_HOST=mongo
       - MONGO_PORT=27017
@@ -69,8 +62,7 @@ services:
       - "60000:80"
     depends_on:
      - api
-    networks:
-     - discinstock_network
+
 
 secrets:
   mongo_password:
@@ -79,9 +71,10 @@ secrets:
     external: true
   jwt_secret_key:
     external: true
-
-networks:
-  discinstock_network:
+  api_username:
+    external: true
+  api_password:
+    external: true
 
 volumes:
   mongo-data:
