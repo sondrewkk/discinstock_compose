@@ -1,7 +1,6 @@
 version: "3.8"
 
 services:
-
   mongo:
     image: mongo
     ports:
@@ -55,14 +54,14 @@ services:
       - ALGORITHM=HS256
       - ACCESS_TOKEN_EXPIRE_MINUTES=30
       - JWT_SECRET_KEY_FILE=/run/secrets/jwt_secret_key
-
+      - JSON_LOGS=1
+      - LOG_LEVEL=DEBUG
   app:
     image: discinstock_app:stage
     ports:
       - "60000:80"
     depends_on:
      - api
-
 
 secrets:
   mongo_password:
@@ -78,3 +77,8 @@ secrets:
 
 volumes:
   mongo-data:
+
+networks:
+  default:
+    name: discinstock
+    external: true
