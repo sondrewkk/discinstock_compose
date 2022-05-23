@@ -28,10 +28,14 @@ services:
     secrets:
       - api_username
       - api_password
+      - guru_api_key
+      - guru_api_secret
     environment:
       - API_URL=http://api:8000
       - API_USERNAME_FILE=/run/secrets/api_username
       - API_PASSWORD_FILE=/run/secrets/api_password
+      - GURU_API_KEY_FILE=/run/secrets/guru_api_key
+      - GURU_API_SECRET_FILE=/run/secrets/guru_api_secret
       - CRAWL_INTERVAL=3600
       - LOG_LEVEL=INFO
 
@@ -73,6 +77,10 @@ secrets:
   api_username:
     external: true
   api_password:
+    external: true
+  guru_api_key:
+    external: true
+  guru_api_secret:
     external: true
 
 volumes:
