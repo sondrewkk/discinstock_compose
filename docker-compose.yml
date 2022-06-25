@@ -39,6 +39,7 @@ services:
       - GURU_API_SECRET_FILE=/run/secrets/guru_api_secret
       - CRAWL_INTERVAL=3600
       - LOG_LEVEL=WARNING
+      - ENABLE_DISC_ITEM_FLIGHT_SPEC_PIPELINE=True
 
   api:
     image: noddi89/discinstock_api:latest
