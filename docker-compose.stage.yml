@@ -67,6 +67,8 @@ services:
       - "60000:80"
     depends_on:
      - api
+    environment:
+      - VUE_APP_SET_URL_NAME_PARAM_DELAY=1200
 
 secrets:
   mongo_password:
